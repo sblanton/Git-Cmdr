@@ -1,0 +1,18 @@
+#-- Special funcs and aliases to use a branch index # instead of the branch name:
+# Note that they all end in 'b'
+alias gsb='git branch -v --color=auto | cat -n | sed "s/    //" | sed "s/\t/  /"'
+gcb () { git checkout `git branch | head -n $1 | tail -n 1 | awk '{print $1}'`; }
+gmb () { git merge `git branch | head -n $1 | tail -n 1 | awk '{print $1}'`; }
+gdlb () { N=$1; shift; git branch -d `git branch | head -n $N | tail -n 1 | awk '{print $1}'`; }
+
+gdfb () {
+	N=$1;
+	shift;
+	cmd="git diff `git branch | head -n $N | tail -n 1 | sed 's/*//' | awk '{print $1}'` $@";
+#	echo $cmd;
+	bash -c "$cmd"
+}
+
+gsub () { git branch --set-upstream `git branch | head -n $1 | tail -n 1 | awk '{print $1}'`; }
+alias b='git branch -v --color=auto | cat -n | grep "*" | sed "s/    //" | sed "s/\t/  /"'
+
