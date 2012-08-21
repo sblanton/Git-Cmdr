@@ -52,7 +52,10 @@ sub update {
 	@folders = grep !/^.{1,2}/, @folders;
 
 	foreach my $folder ( @folders ) {
-		return $s->curr_work_dir();
+		if ( -d $folder and -d "$folder/.git" ) {
+	
+
+		}
 	}	
 	
 };
