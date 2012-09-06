@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+
+use Git::Cmdr::Container;
+
+Git::Cmdr::Container->new()->resolve(service=>'git_cmdr')->exec(@ARGV);
