@@ -26,7 +26,6 @@ has user_properties => (
 	is      => 'rw',
 	default => sub {
 		Parse::PlainConfig->new(
-			'PARAM_DELIM'  => '=',
 			'FILE'         => '~/.git-cmdr',
 			'MAX_BYTES'    => 65536,
 			'SMART_PARSER' => 1,
