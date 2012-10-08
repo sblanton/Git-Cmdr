@@ -6,7 +6,7 @@ use Bread::Board;
 extends 'Bread::Board::Container';
 
 use App::Services::Logger::Container;
-use Git::Cmdr::Cmd;
+use Git::Cmdr;
 
 has name => (
 	is      => 'ro',
@@ -17,9 +17,10 @@ has log_conf => (
 	is      => 'rw',
 	default => sub {
 		\qq/ 
-log4perl.rootLogger=INFO, main
-log4perl.appender.main=Log::Log4perl::Appender::Screen
-log4perl.appender.main.layout   = Log::Log4perl::Layout::SimpleLayout
+log4perl.rootLogger=INFO, stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%-1p| %m%n
 /;
 	},
 );
@@ -39,11 +40,17 @@ sub BUILD {
 			dependencies => { logger_svc => depends_on('log/logger_svc'), }
 		);
 
+		service 'cmds' => ( class => 'Git::Cmdr::Cmds', );
+
+		service 'pragmas' => ( class => 'Git::Cmdr::Pragmas', );
+
 		service 'git_cmdr' => (
-			class        => 'Git::Cmdr::Cmd',
+			class        => 'Git::Cmdr',
 			dependencies => {
 				logger_svc => depends_on('log/logger_svc'),
 				git_env    => depends_on('git_env'),
+				git_cmd    => depends_on('cmds'),
+				git_pragma => depends_on('pragmas'),
 			}
 		);
 
