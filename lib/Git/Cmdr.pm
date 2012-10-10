@@ -32,8 +32,8 @@ sub exec {
 
 	}
 
-#	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
-	map { $_ =~ s/\s*$//; say($_) } $s->_exec($git_cmd);
+	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
+#	map { $_ =~ s/\s*$//; say($_) } $s->_exec($git_cmd);
 
 }
 

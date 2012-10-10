@@ -7,9 +7,6 @@ use Moo;
 
 sub update {
 	my $s = shift or confess;
-	my @gargs = @_;
-	
-	return "git add -v @gargs";
 	
 }
 
