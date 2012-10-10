@@ -1,3 +1,5 @@
+# ABSTRACT: Makes Git easy 
+
 package Git::Cmdr;
 
 use common::sense;
