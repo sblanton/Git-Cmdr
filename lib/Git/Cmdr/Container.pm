@@ -20,7 +20,7 @@ has log_conf => (
 log4perl.rootLogger=INFO, stdout
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=%-1p| %m%n
+log4j.appender.stdout.layout.ConversionPattern=%m%n
 /;
 	},
 );

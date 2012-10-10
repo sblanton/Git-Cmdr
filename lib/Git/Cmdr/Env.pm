@@ -34,10 +34,15 @@ has user_properties => (
 	lazy => 1
 );
 
+sub verify {
+	my $s = shift or confess;
+	return unless $s->update_work_tree;
+}
+
 sub update {
 	my $s = shift or confess;
-	$s->update_work_tree;
-	$s->update_repos;
+	return unless $s->update_work_tree;
+	return $s->update_repos;
 }
 
 sub update_user_properties {
@@ -84,7 +89,7 @@ sub update_repos {
 			$s->repos( [ @{ $s->repos }, $folder ] );
 		}
 	}
-	
+
 	chdir($orig_cwd);
 
 }

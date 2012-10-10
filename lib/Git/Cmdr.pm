@@ -20,6 +20,11 @@ sub exec {
 	my @args      = @_;
 
 	return $s->help unless ($directive);
+	
+	unless ($s->git_env->verify) {
+		$s->log->error("Current directory is not part of a Git work tree");
+		exit 1;
+	}
 
 	my $git_cmd;
 
@@ -35,7 +40,6 @@ sub exec {
 	}
 
 	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
-#	map { $_ =~ s/\s*$//; say($_) } $s->_exec($git_cmd);
 
 }
 
@@ -44,7 +48,7 @@ sub _exec {
 
 	my $git_cmd = shift or $s->log->logconfess();
 
-	$s->log->info("GIT CMD: '$git_cmd':");
+	$s->log->info("($git_cmd)");
 
 	return `$git_cmd`;
 }
