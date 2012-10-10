@@ -37,12 +37,19 @@ sub BUILD {
 
 		service 'git_env' => (
 			class        => 'Git::Cmdr::Env',
+			lifecycle    => 'Singleton',
 			dependencies => { logger_svc => depends_on('log/logger_svc'), }
 		);
 
 		service 'cmds' => ( class => 'Git::Cmdr::Cmds', );
 
-		service 'pragmas' => ( class => 'Git::Cmdr::Pragmas', );
+		service 'pragmas' => (
+			class        => 'Git::Cmdr::Pragmas',
+			dependencies => {
+				git_env    => depends_on('git_env'),
+				logger_svc => depends_on('log/logger_svc'),
+			  }
+		);
 
 		service 'git_cmdr' => (
 			class        => 'Git::Cmdr',

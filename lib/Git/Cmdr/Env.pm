@@ -15,6 +15,10 @@ sub BUILD {
 has work_tree => ( is => 'rw', );
 has workspace => ( is => 'rw', );
 
+sub git_dir {
+	return $_[0]->work_tree . '/.git';
+}
+
 has repos => (
 	is  => 'rw',
 	isa => sub { die unless ref( $_[0] ) eq 'ARRAY' },
