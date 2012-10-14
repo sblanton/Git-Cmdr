@@ -1,0 +1,16 @@
+[user]
+	name = Sean Blanton
+	email = sblanton@choppertrading.com
+[gui]
+	recentrepo = /home/sblanton/work/Scout
+
+[color]
+    ui = true
+
+[diff]
+    tool = bc3
+
+
+[merge]
+    tool = bc3
+

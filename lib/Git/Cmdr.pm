@@ -1,13 +1,17 @@
-package Git::Cmdr::Cmd;
+# ABSTRACT: Makes Git easy 
+
+package Git::Cmdr;
 
 use common::sense;
 use Carp qw(confess);
 
 use Moo;
-with 'App::Services::Logger::Role';
 
-has git_env => ( is => 'rw', );
-has git_cmd => ( is => 'rw', );
+with('App::Services::Logger::Role');
+
+has git_env    => ( is => 'rw', );
+has git_cmd    => ( is => 'rw', );
+has git_pragma => ( is => 'rw', );
 
 sub exec {
 	my $s = shift or die;
@@ -15,19 +19,27 @@ sub exec {
 	my $directive = shift;
 	my @args      = @_;
 
-	unless ($directive) {
-		$s->help;
+	return $s->help unless ($directive);
+	
+	unless ($s->git_env->verify) {
+		$s->log->error("Current directory is not part of a Git work tree");
 		exit 1;
 	}
 
-	if ( $s->can($directive) ) {
-		$s->$directive(@args);
+	my $git_cmd;
+
+	if ( $s->git_cmd->can($directive) ) {
+		$git_cmd = $s->git_cmd->$directive(@args);
+
+	} elsif ( $s->git_pragma->can($directive) ) {
+		return $s->git_pragma->$directive(@args);
 
 	} else {
-		my $git_cmd = "git $directive @args";
-		map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
+		$git_cmd = "git $directive @args";
 
 	}
+
+	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
 
 }
 
@@ -35,8 +47,8 @@ sub _exec {
 	my $s = shift or confess;
 
 	my $git_cmd = shift or $s->log->logconfess();
-	
-	$s->log->info("'$git_cmd':");
+
+	$s->log->info("($git_cmd)");
 
 	return `$git_cmd`;
 }
@@ -53,26 +65,6 @@ sub env {
 
 	}
 
-}
-
-
-sub add {
-	my $s = shift or confess;
-	my @gargs = @_;
-	
-	my $git_cmd = "git add -v @gargs";
-
-	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
-	
-}
-
-sub status {
-	my $s = shift or confess;
-	
-	my $git_cmd = "git status -sb";
-
-	map { $_ =~ s/\s*$//; $s->log->info($_) } $s->_exec($git_cmd);
-	
 }
 
 sub help {

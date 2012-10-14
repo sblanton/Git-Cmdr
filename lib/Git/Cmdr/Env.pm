@@ -5,7 +5,7 @@ use Carp qw(confess);
 use common::sense;
 
 use Cwd;
-use Config::Any;
+use Config::GitLike::Git;
 
 sub BUILD {
 	$_[0]->update;
@@ -14,6 +14,10 @@ sub BUILD {
 
 has work_tree => ( is => 'rw', );
 has workspace => ( is => 'rw', );
+
+sub git_dir {
+	return $_[0]->work_tree . '/.git';
+}
 
 has repos => (
 	is  => 'rw',
@@ -34,10 +38,15 @@ has user_properties => (
 	lazy => 1
 );
 
+sub verify {
+	my $s = shift or confess;
+	return unless $s->update_work_tree;
+}
+
 sub update {
 	my $s = shift or confess;
-	$s->update_work_tree;
-	$s->update_repos;
+	return unless $s->update_work_tree;
+	return $s->update_repos;
 }
 
 sub update_user_properties {
@@ -84,7 +93,7 @@ sub update_repos {
 			$s->repos( [ @{ $s->repos }, $folder ] );
 		}
 	}
-	
+
 	chdir($orig_cwd);
 
 }
