@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includepath>
   <includepathentry path="/home/sblanton/perl/lib" />
+  <includepathentry path="C:\Users\sean\workspace\app-services\lib" />
+  <includepathentry path="C:\Users\sean\workspace\git-commander\lib" />
 </includepath>
 

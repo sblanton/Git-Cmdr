@@ -5,7 +5,7 @@ use Carp qw(confess);
 use common::sense;
 
 use Cwd;
-use Parse::PlainConfig;
+use Config::Any;
 
 sub BUILD {
 	$_[0]->update;
