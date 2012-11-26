@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+# PODNAME: git-cmdr
+# ABSTRACT: Command line program for Git::Cmdr
+
 use Git::Cmdr::Container;
 
 Git::Cmdr::Container->new()->resolve(service=>'git_cmdr')->exec(@ARGV);
