@@ -1,6 +1,6 @@
-package Git::Cmdr::Cmds;
+package Git::Cmdr::Command::Add;
 
-use common::sense;
+use strict;
 use Carp qw(confess);
 
 use Moo;

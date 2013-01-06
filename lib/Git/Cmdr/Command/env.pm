@@ -1,15 +1,9 @@
-package Git::Cmdr::Pragmas;
+package Git::Cmdr::env;
 
 use common::sense;
 use Carp qw(confess);
 
-use Moo;
-
-with 'App::Services::Logger::Role';
-
-has git_env => ( is => 'rw' );
-
-sub env {
+sub execute {
 	my $s = shift or confess;
 
 	my $log = $s->log;
@@ -22,12 +16,5 @@ sub env {
 	map { $log->info("\t$_") } @{ $s->git_env->repos };
 
 }
-
-sub info {
-	my $s = shift or confess;
-
-}
-
-no Moo;
 
 1;

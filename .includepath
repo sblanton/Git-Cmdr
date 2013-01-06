@@ -2,6 +2,6 @@
 <includepath>
   <includepathentry path="/home/sblanton/perl/lib" />
   <includepathentry path="C:\Users\sean\workspace\app-services\lib" />
-  <includepathentry path="C:\Users\sean\workspace\git-commander\lib" />
+  <includepathentry path="C:\Users\sean\workspace\Git-Cmdr\lib" />
 </includepath>
 
