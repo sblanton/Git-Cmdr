@@ -3,6 +3,6 @@
 # PODNAME: git-cmdr
 # ABSTRACT: Command line program for Git::Cmdr
 
-use Git::Cmdr::Container;
+use Git::Cmdr;
 
-Git::Cmdr::Container->new()->resolve(service=>'git_cmdr')->exec(@ARGV);
+Git::Cmdr->run;

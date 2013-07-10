@@ -1,4 +1,5 @@
-package Git::Cmdr::env;
+package Git::Cmdr::Command::env;
+use Git::Cmdr -command;
 
 use common::sense;
 use Carp qw(confess);

@@ -1,4 +1,5 @@
-package Git::Cmdr::Command::Add;
+package Git::Cmdr::Command::add;
+use Git::Cmdr -command;
 
 use strict;
 use Carp qw(confess);

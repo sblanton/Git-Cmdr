@@ -1,17 +1,18 @@
 package Git::Cmdr::Command;
+use Moose;
+
 use App::Cmd::Setup -command;
 
-use App::Services::Log::Container;
-with App::Services::Log::Role;
+use App::Services::Logger::Container;
+with 'App::Services::Logger::Role';
 
-use Moo;
 use Carp qw(confess);
 use common::sense;
 
 use Cwd;
 use Config::GitLike::Git;
 
-has log_conf => (
+has log_conf2 => (
 	is      => 'rw',
 	default => sub {
 		\qq/ 
@@ -27,7 +28,7 @@ sub BUILD {
 	my $s = shift;
 
 	my $log_cntnr = App::Services::Logger::Container->new(
-		log_conf => $s->log_conf,
+		log_conf => $s->log_conf2,
 		name     => 'log'
 	);
 
@@ -161,6 +162,6 @@ sub update_repos {
 
 }
 
-no Moo;
+no Moose;
 
 1;

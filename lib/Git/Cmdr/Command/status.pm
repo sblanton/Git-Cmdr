@@ -1,4 +1,5 @@
 package Git::Cmdr::Command::status;
+use Git::Cmdr -command;
 
 use strict;
 use Carp qw(confess);
